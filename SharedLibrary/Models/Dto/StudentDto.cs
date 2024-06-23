@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SharedLibrary.Models
+namespace SharedLibrary.Models.Dto
 {
-    public class Student
+    public class StudentDto
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = "Name field is required")]
@@ -13,6 +13,5 @@ namespace SharedLibrary.Models
         [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Email field is required")]
         public string Email { get; set; } = string.Empty;
-
     }
 }

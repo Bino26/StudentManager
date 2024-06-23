@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models;
+using SharedLibrary.Models.Entity;
 
 namespace StudentManager.Server.Data
 {
