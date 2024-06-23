@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using StudentManager.Server.Data;
+using StudentManager.Server.Mapping;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<StudentDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("StudentManagerString")));
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
