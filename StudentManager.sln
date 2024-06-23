@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManager.Server", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{DB19B345-0BFB-42C6-A02D-E0C473451E92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManager.Client", "StudentManager.Client\StudentManager.Client.csproj", "{D33AD189-5EC5-4BC3-B5B8-20D6FCEF1F28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33AD189-5EC5-4BC3-B5B8-20D6FCEF1F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33AD189-5EC5-4BC3-B5B8-20D6FCEF1F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33AD189-5EC5-4BC3-B5B8-20D6FCEF1F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33AD189-5EC5-4BC3-B5B8-20D6FCEF1F28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
