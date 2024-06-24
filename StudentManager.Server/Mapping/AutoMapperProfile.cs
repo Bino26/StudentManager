@@ -10,7 +10,7 @@ namespace StudentManager.Server.Mapping
         {
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<CreateStudentDto, Student>().ReverseMap();
-            CreateMap<UpdateStudentDto, Student>().ReverseMap();
+
         }
     }
 }

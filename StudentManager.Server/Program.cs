@@ -13,6 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+builder.Services.AddControllers();
 builder.Services.AddDbContext<StudentDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("StudentManagerString")));
 
@@ -27,12 +31,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseWebAssemblyDebugging();
 }
 
 app.UseHttpsRedirection();
-
+app.UseBlazorFrameworkFiles();
+app.UseStaticFiles();
 app.UseAuthorization();
 
-app.MapControllers();
 
+app.MapControllers();
+app.MapFallbackToFile("index.html");
 app.Run();

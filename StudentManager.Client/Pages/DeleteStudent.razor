@@ -1,0 +1,35 @@
+﻿@page "/student/delete/{Id:Guid}"
+@using SharedLibrary.Models.Entity
+@inject HttpClient httpClient
+@inject ISnackbar snackbar
+@inject NavigationManager navigationManager
+
+<PageTitle>Delete Student</PageTitle>
+<MudText Typo="Typo.h3" GutterBottom="true"></MudText>
+
+<MudText></MudText>
+
+@code {
+    [Parameter]
+
+    public Guid Id { get; set; }
+
+    protected Student student = new();
+
+    protected override  async Task OnParametersSetAsync()
+    {
+        student = await httpClient.GetFromJsonAsync<Student>($"api/student/{Id}");
+    }
+
+    public async Task RemoveStudent(Guid id)
+    {
+        await httpClient.DeleteAsync($"api/Supplier/{Id}");
+        snackbar.Add("Student deleted sucessfuly");
+
+
+    }
+    public void Home()
+    {
+        navigationManager.NavigateTo("/");
+    }
+}
