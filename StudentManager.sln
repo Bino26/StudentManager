@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManager.Server", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{DB19B345-0BFB-42C6-A02D-E0C473451E92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManager.Client", "StudentManager.Client\StudentManager.Client.csproj", "{2C2B533A-4BB7-4F1F-862B-CFF6FFD87B4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManager.Client", "StudentManager.Client\StudentManager.Client.csproj", "{C392DADE-F564-400C-B6A5-BCFC65E45740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB19B345-0BFB-42C6-A02D-E0C473451E92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C2B533A-4BB7-4F1F-862B-CFF6FFD87B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C2B533A-4BB7-4F1F-862B-CFF6FFD87B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C2B533A-4BB7-4F1F-862B-CFF6FFD87B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C2B533A-4BB7-4F1F-862B-CFF6FFD87B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

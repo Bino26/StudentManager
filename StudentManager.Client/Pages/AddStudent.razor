@@ -6,8 +6,8 @@
 @using System.ComponentModel.DataAnnotations
 @inject ISnackbar Snackbar
 
-<PageTitle>Add Student</PageTitle>
-<MudText Typo="Typo.h3" GutterBottom="true">Add Supplier</MudText>
+<PageTitle>@Title</PageTitle>
+<MudText Typo="Typo.h3" GutterBottom="true">@Title</MudText>
 
 <EditForm Model="@student" OnValidSubmit="SaveStudent">
     <DataAnnotationsValidator />
@@ -46,9 +46,9 @@
     {
         if(Id != Guid.Empty)
         {
-            Title = "Edit";
-
+            ArgumentNullException.ThrowIfNull(student);
             student = await HttpClient.GetFromJsonAsync<Student>($"api/student/{Id}");
+            Title = $"Edit {student.Name} Details";
         }
     }
 
@@ -70,6 +70,6 @@
 
     public void HomePage()
     {
-        navigationManager.NavigateTo("/supplierdetails");
+        navigationManager.NavigateTo("/students");
     }
 }
