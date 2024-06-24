@@ -1,5 +1,5 @@
 ﻿@page "/student/delete/{Id:guid}"
-@using SharedLibrary.Models.Entity
+@inject IStudentService studentService 
 @inject HttpClient httpClient
 @inject ISnackbar snackbar
 @inject NavigationManager navigationManager
@@ -43,12 +43,12 @@
 
     protected override  async Task OnParametersSetAsync()
     {
-        student = await httpClient.GetFromJsonAsync<Student>($"api/student/{Id}");
+        student = await studentService.GetStudentById(Id);
     }
 
     public async Task RemoveStudent(Guid id)
     {
-        await httpClient.DeleteAsync($"api/Supplier/{Id}");
+        await studentService.DeleteStudent(id);
         snackbar.Add("Student deleted sucessfuly");
         Home();
 

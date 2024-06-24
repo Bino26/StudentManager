@@ -5,6 +5,7 @@
 @inject NavigationManager navigationManager
 @using System.ComponentModel.DataAnnotations
 @inject ISnackbar Snackbar
+@inject IStudentService studentService
 
 <PageTitle>@Title</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">@Title</MudText>
@@ -46,9 +47,10 @@
     {
         if(Id != Guid.Empty)
         {
+            
+            student = await studentService.GetStudentById(Id);
             ArgumentNullException.ThrowIfNull(student);
-            student = await HttpClient.GetFromJsonAsync<Student>($"api/student/{Id}");
-            Title = $"Edit {student.Name} Details";
+            Title =  $"Edit {student.Name} Details";
         }
     }
 
@@ -56,12 +58,12 @@
     {
         if (Id != Guid.Empty)
         {
-            await HttpClient.PutAsJsonAsync("api/student", student);
+            await studentService.UpdateStudent(student);
             Snackbar.Add("Updated Student", Severity.Success);
         }
         else
         {
-            await HttpClient.PostAsJsonAsync("api/student/createstudent", student);
+            await studentService.CreateStudent(student);
             Snackbar.Add("Added Student", Severity.Success);
         }
 

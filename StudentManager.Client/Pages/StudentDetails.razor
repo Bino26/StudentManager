@@ -1,6 +1,7 @@
 ﻿@page "/students"
 @using SharedLibrary.Models.Entity
 @inject HttpClient HttpClient
+@inject IStudentService studentService
 
 <PageTitle>Student Details</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">Students Details</MudText>
@@ -37,11 +38,11 @@ else
     </MudPaper>
 }
 @code {
-   
+
     protected List<Student> students = new();
 
     protected override async Task OnInitializedAsync()
     {
-        students = await HttpClient.GetFromJsonAsync<List<Student>>("api/student/list");
+        students = await studentService.GetStudents();
     }
 }
