@@ -1,13 +1,38 @@
-﻿@page "/student/delete/{Id:Guid}"
+﻿@page "/student/delete/{Id:guid}"
 @using SharedLibrary.Models.Entity
 @inject HttpClient httpClient
 @inject ISnackbar snackbar
 @inject NavigationManager navigationManager
 
 <PageTitle>Delete Student</PageTitle>
-<MudText Typo="Typo.h3" GutterBottom="true"></MudText>
+<MudText Typo="Typo.h3" GutterBottom="true">Delete Student</MudText>
 
-<MudText></MudText>
+<MudText Typo="Typo.h4" GutterBottom="true">Delete @student.Name?</MudText>
+
+<MudSimpleTable Style="overflow-x : auto">
+    <tbody>
+        <tr>
+            <td><strong>Name</strong></td>
+            <td><em>@student.Name</em></td>
+        </tr>
+        <tr>
+            <td><strong>Class</strong></td>
+            <td><em>@student.Class</em></td>
+        </tr>
+        <tr>
+            <td><strong>Email</strong></td>
+            <td><em>@student.Email</em></td>
+        </tr>
+
+    </tbody>
+</MudSimpleTable>
+<br/>
+<br/>
+<MudPaper Class="d-flex flex-column flex-grow-1 gap-4" Elevation="0">
+    <MudButton @onclick="@(() => RemoveStudent(student.Id))" Variant="Variant.Filled" Color="Color.Primary">Delete</MudButton>
+    <MudButton @onclick="@(() => Home())" Variant="Variant.Filled" Color="Color.Secondary">Cancel</MudButton>
+</MudPaper>
+
 
 @code {
     [Parameter]
@@ -25,7 +50,7 @@
     {
         await httpClient.DeleteAsync($"api/Supplier/{Id}");
         snackbar.Add("Student deleted sucessfuly");
-
+        Home();
 
     }
     public void Home()

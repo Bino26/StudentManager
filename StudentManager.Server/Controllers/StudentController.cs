@@ -22,6 +22,16 @@ namespace StudentManager.Server.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
+        [Route("{id}")]
+
+
+        public async Task<IActionResult> GetStudentId([FromRoute] Guid id)
+        {
+            var student = await studentRepository.GetByIdAsync(id);
+            return Ok(mapper.Map<StudentDto>(student));
+        }
+
         // GET: api/student/list?filterOn=Name&filterQuery=Track&isAscending=true
         [HttpGet]
         [Route("list")]

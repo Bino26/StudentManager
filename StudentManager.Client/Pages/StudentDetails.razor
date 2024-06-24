@@ -2,21 +2,21 @@
 @using SharedLibrary.Models.Entity
 @inject HttpClient HttpClient
 
-<PageTitle>Supplier Details</PageTitle>
+<PageTitle>Student Details</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">Students Details</MudText>
 
-@if(suppliers.Count <= 0)
+@if(students.Count <= 0)
 {
     <MudProgressCircular Color="Color.Primary" Style="height:70px;width:70px;" Indeterminate="true" />
 }
 else
 {
     
-    <MudTable Items="suppliers" HorizontalScrollbar="true" Hover="true" Breakpoint="Breakpoint.Sm">
+    <MudTable Items="students" HorizontalScrollbar="true" Hover="true" Breakpoint="Breakpoint.Sm">
         <HeaderContent>
             <MudTh>Id</MudTh>
             <MudTh>Name</MudTh>
-            <MudTh>Company</MudTh>
+            <MudTh>Class</MudTh>
             <MudTh>Email</MudTh>
             <MudTh>Action</MudTh>
         </HeaderContent>
@@ -33,15 +33,15 @@ else
     </MudTable>
     <br/>
     <MudPaper Class="d-flex flex-row-reverse flex-grow-1 gap-4" Elevation="0">
-        <MudFab Href="/supplier/add" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
+        <MudFab Href="/student/add" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
     </MudPaper>
 }
 @code {
     // We need to have a list of supplier
-    protected List<Student> suppliers = new();
+    protected List<Student> students = new();
 
     protected override async Task OnInitializedAsync()
     {
-        suppliers = await HttpClient.GetFromJsonAsync<List<Student>>("api/student/list");
+        students = await HttpClient.GetFromJsonAsync<List<Student>>("api/student/list");
     }
 }

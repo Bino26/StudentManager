@@ -1,0 +1,75 @@
+﻿@page "/student/add"
+@page "/student/edit/{Id:guid}"
+@using SharedLibrary.Models
+@inject HttpClient HttpClient
+@inject NavigationManager navigationManager
+@using System.ComponentModel.DataAnnotations
+@inject ISnackbar Snackbar
+
+<PageTitle>Add Student</PageTitle>
+<MudText Typo="Typo.h3" GutterBottom="true">Add Supplier</MudText>
+
+<EditForm Model="@student" OnValidSubmit="SaveStudent">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Name" 
+                                  @bind-Value="student.Name" For="@(() => student.Name)" />
+                    <MudTextField Label="Class" Class="mt-3"
+                                  @bind-Value="student.Class" For="@(() => student.Class)" />
+                    <MudTextField Label="Email"  Class="mt-3"
+                                  @bind-Value="student.Email" For="@(() => student.Email)"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudPaper Class="d-flex flex-column flex-grow-1 gap-4" Elevation="0">
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" >@Title</MudButton>
+                        <MudButton @onclick = "@(() => HomePage())" Variant="Variant.Filled" Color="Color.Secondary" >Cancel</MudButton>
+                    </MudPaper>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+    protected string Title = "Add";
+
+    protected Student student  = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Id != Guid.Empty)
+        {
+            Title = "Edit";
+
+            student = await HttpClient.GetFromJsonAsync<Student>($"api/student/{Id}");
+        }
+    }
+
+    protected async Task SaveStudent()
+    {
+        if (Id != Guid.Empty)
+        {
+            await HttpClient.PutAsJsonAsync("api/student", student);
+            Snackbar.Add("Updated Student", Severity.Success);
+        }
+        else
+        {
+            await HttpClient.PostAsJsonAsync("api/student/createstudent", student);
+            Snackbar.Add("Added Student", Severity.Success);
+        }
+
+        HomePage();
+    }
+
+    public void HomePage()
+    {
+        navigationManager.NavigateTo("/supplierdetails");
+    }
+}
