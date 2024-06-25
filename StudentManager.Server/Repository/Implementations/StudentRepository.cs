@@ -3,7 +3,7 @@ using SharedLibrary.Models.Entity;
 using StudentManager.Server.Data;
 using StudentManager.Server.Repository.Contract;
 
-namespace StudentManager.Server.Repository
+namespace StudentManager.Server.Repository.Implementations
 {
     public class StudentRepository : IStudentRepository
     {
@@ -87,7 +87,7 @@ namespace StudentManager.Server.Repository
 
                 //filtering
 
-                if ((string.IsNullOrWhiteSpace(filterOn) == false && (string.IsNullOrWhiteSpace(filterQuery) == false)))
+                if (string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
                 {
                     if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
                     {

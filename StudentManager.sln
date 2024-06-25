@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentManager.Client", "StudentManager.Client\StudentManager.Client.csproj", "{C392DADE-F564-400C-B6A5-BCFC65E45740}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthLibrary", "..\..\AuthLibrary\AuthLibrary\AuthLibrary\AuthLibrary.csproj", "{747D994E-9C20-4F6E-8519-CCDA06F7C3D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C392DADE-F564-400C-B6A5-BCFC65E45740}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747D994E-9C20-4F6E-8519-CCDA06F7C3D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747D994E-9C20-4F6E-8519-CCDA06F7C3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747D994E-9C20-4F6E-8519-CCDA06F7C3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747D994E-9C20-4F6E-8519-CCDA06F7C3D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
