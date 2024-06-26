@@ -5,7 +5,7 @@ namespace StudentManager.Server.Data
 {
     public class StudentDbContext : DbContext
     {
-        public StudentDbContext(DbContextOptions options) : base(options)
+        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
         {
 
         }
