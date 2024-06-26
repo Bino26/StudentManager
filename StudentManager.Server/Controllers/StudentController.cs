@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Models.Dto;
 using SharedLibrary.Models.Entity;
@@ -24,6 +25,7 @@ namespace StudentManager.Server.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize]
 
 
         public async Task<IActionResult> GetStudentId([FromRoute] Guid id)
@@ -35,6 +37,7 @@ namespace StudentManager.Server.Controllers
         // GET: api/student/list?filterOn=Name&filterQuery=Track&isAscending=true
         [HttpGet]
         [Route("list")]
+        [Authorize]
         public async Task<IActionResult> GetAllStudents([FromQuery] string? filterOn, [FromQuery] string? filterQuery, [FromQuery] string? sortBy, [FromQuery] bool? isAscending, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 100)
         {
             var students = await studentRepository.GetAllAsync(filterOn, filterQuery, sortBy, isAscending ?? true, pageNumber, pageSize);
@@ -46,7 +49,7 @@ namespace StudentManager.Server.Controllers
         [HttpPost]
         [Route("createstudent")]
         [ValidateModel]
-
+        [Authorize]
         public async Task<IActionResult> CreateStudent([FromBody] CreateStudentDto createStudentDto)
         {
             var student = mapper.Map<Student>(createStudentDto);
@@ -56,6 +59,7 @@ namespace StudentManager.Server.Controllers
         // PUT: api/student
         [HttpPut]
         [ValidateModel]
+        [Authorize]
 
         public async Task<IActionResult> UpdateStudent(Student student)
         {
@@ -67,6 +71,7 @@ namespace StudentManager.Server.Controllers
         // DELETE: api/student
         [HttpDelete]
         [Route("{id}")]
+        [Authorize]
 
         public async Task<IActionResult> DeleteStudent([FromRoute] Guid id)
         {
@@ -76,6 +81,7 @@ namespace StudentManager.Server.Controllers
 
         // DELETE: api/student
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteAllStudents()
         {
             await studentRepository.DeleteAllStudentsAsync();

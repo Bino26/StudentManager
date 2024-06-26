@@ -1,20 +1,51 @@
-﻿@inherits LayoutComponentBase
+﻿@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navigationManager
+@inherits LayoutComponentBase
 
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudSpacer />
+   <MudAppBar Class="pa-4 d-flex justify-space-evenly" Elevation="0">
+        <AuthorizeView>
+            <NotAuthorized>
+                <MudNavLink Href="register" Match="NavLinkMatch.Prefix">Register</MudNavLink>
+                <MudSpacer />
+                <MudNavLink Href="login" Match="NavLinkMatch.Prefix">Login</MudNavLink>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit"></MudIconButton>
+            </NotAuthorized>
+            <Authorized>
+                <MudText>@context.User.Identity!.Name</MudText>
+                <MudIconButton Icon="@Icons.Material.Filled.Logout" Color="Color.Inherit" Title="Logout" @onclick="Logout">LogOut</MudIconButton>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            </Authorized>
+        </AuthorizeView>
+         
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6">Students Admin Portal</MudText>
-        </MudDrawerHeader>
-        <NavMenu />
-    </MudDrawer>
+    <AuthorizeView>
+        <Authorized>
+            <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+                <MudDrawerHeader>
+                    <MudText Typo="Typo.h6">Students Admin Portal</MudText>
+                </MudDrawerHeader>
+                <MudDrawerContainer>
+                    <MudNavLink Href="students" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EmojiPeople">Students Details</MudNavLink>
+                </MudDrawerContainer>
+            </MudDrawer>
+
+        </Authorized>
+        <NotAuthorized>
+            <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
+                <MudDrawerHeader>
+                    <MudText Typo="Typo.h6">Students Admin Portal</MudText>
+                </MudDrawerHeader>
+            </MudDrawer>
+        </NotAuthorized>
+    </AuthorizeView>
+    
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
             @Body
@@ -28,5 +59,11 @@
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null!);
+        navigationManager.NavigateTo("/", replace: true);
     }
 }
