@@ -2,6 +2,7 @@
 @using SharedLibrary.Models.Entity
 @inject HttpClient HttpClient
 @inject IStudentService studentService
+@inject ISnackbar snackbar
 
 <PageTitle>Student Details</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">Students Details</MudText>
@@ -45,4 +46,46 @@ else
     {
         students = await studentService.GetStudents();
     }
+
+    // private void ShowDeleteConfirmation(int id)
+    // {
+    //     var parameters = new DialogParameters
+    //         {
+    //             ["ContentText"] = "Do you really want to delete this record? This process cannot be undone.",
+    //             ["ButtonText"] = "Delete",
+    //             ["Color"] = Color.Error
+    //         };
+
+    //     var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+    //     var dialog = DialogService.Show<DeleteDialog>("Delete", parameters, options);
+    //     dialog.Result.ContinueWith(async result =>
+    //     {
+    //         if (!result.IsCanceled)
+    //         {
+    //             await DeleteProduct(id);
+    //         }
+    //     });
+    // }
+
+    private async Task DeleteProduct(int id)
+    {
+        var response = await HttpClient.DeleteAsync($"api/students/{id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+
+            {
+                snackbar.Add("Student has been deleted successfuly", Severity.Success);
+                StateHasChanged(); 
+            }
+        }
+        else
+        {
+
+            snackbar.Add("Error deleting product.",Severity.Error);
+        }
+    }
+
+    
 }
