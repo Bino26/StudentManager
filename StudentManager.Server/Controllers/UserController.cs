@@ -48,7 +48,7 @@ namespace StudentManager.Server.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Admin,Student")]
         [Route("user")]
 
         public async Task<IActionResult> GetUser()
@@ -58,7 +58,7 @@ namespace StudentManager.Server.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Student,Admin")]
         [Route("logout")]
 
         public async Task<IActionResult> LogOut()
@@ -77,7 +77,7 @@ namespace StudentManager.Server.Controllers
         ////}
 
         [HttpDelete]
-        [Authorize(Roles = "Writer,Reader")]
+        [Authorize(Roles = "Student,Admin")]
         [Route("deleteuser")]
 
         public async Task<IActionResult> DeleteUser()

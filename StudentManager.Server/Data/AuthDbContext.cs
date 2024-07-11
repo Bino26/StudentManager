@@ -12,24 +12,24 @@ namespace StudentManager.Server.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            var readerRoleId = Guid.NewGuid().ToString();
-            var writerRoleId = Guid.NewGuid().ToString();
+            var adminRoleId = Guid.NewGuid().ToString();
+            var studentRoleId = Guid.NewGuid().ToString();
 
             var roles = new List<IdentityRole>
             {
                 new IdentityRole
                 {
-                    Id = readerRoleId,
-                    ConcurrencyStamp = readerRoleId,
-                    Name = "Reader",
-                    NormalizedName="Reader".ToUpper()
+                    Id = adminRoleId,
+                    ConcurrencyStamp = adminRoleId,
+                    Name = "Admin",
+                    NormalizedName="Admin".ToUpper()
                 },
                 new IdentityRole
                 {
-                    Id = writerRoleId,
-                    ConcurrencyStamp = writerRoleId,
-                    Name = "Writer",
-                    NormalizedName="Writer".ToUpper()
+                    Id = studentRoleId,
+                    ConcurrencyStamp = studentRoleId,
+                    Name = "Student",
+                    NormalizedName="Student".ToUpper()
                 },
             };
             builder.Entity<IdentityRole>().HasData(roles);

@@ -1,7 +1,9 @@
-﻿namespace StudentManager.Server.Services.Contracts
+﻿using SharedLibrary.Models.Entity;
+
+namespace StudentManager.Server.Services.Contracts
 {
     public interface ITokenService
     {
-        Task<string> GenerateJwtTokenAsync(string Email, IList<string> roles);
+        Task<string> GenerateJwtTokenAsync(UserSession user);
     }
 }

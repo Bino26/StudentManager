@@ -28,16 +28,24 @@ namespace StudentManager.Server.Services.Implementations
         {
             var user = new ApplicationUser
             {
-                UserName = createUserDto.Email,
+                UserName = createUserDto.Username,
                 Email = createUserDto.Email,
             };
             var result = await userManager.CreateAsync(user, createUserDto.Password);
             if (result.Succeeded)
+
             {
+                var checkAdmin = createUserDto.Email.Contains("admin", StringComparison.OrdinalIgnoreCase);
+                if (checkAdmin)
+                {
+                    await userManager.AddToRoleAsync(user, "Admin");
+                }
+
                 var roles = createUserDto.Roles ?? new List<string>();
-                roles.Add("Reader");
+                roles.Add("Student");
 
                 result = await userManager.AddToRolesAsync(user, roles);
+
             }
             return result.Succeeded;
         }
@@ -76,6 +84,7 @@ namespace StudentManager.Server.Services.Implementations
                 Id = existingUser.Id,
                 Username = existingUser.UserName,
                 Email = existingUser.Email
+
             };
             return new OkObjectResult(userDetails);
 
@@ -98,13 +107,14 @@ namespace StudentManager.Server.Services.Implementations
                 if (signInResult.Succeeded)
                 {
                     var roles = await userManager.GetRolesAsync(user);
-                    var token = await tokenService.GenerateJwtTokenAsync(user.Email, roles);
+                    var userdata = new UserSession(user.Id, user.Email!, user.UserName!, roles);
+                    var token = await tokenService.GenerateJwtTokenAsync(userdata);
 
 
                     return new LoginResponse
                     {
                         JwtToken = token,
-                        //User = mapper.Map<UserDto>(user),
+
 
                     };
 

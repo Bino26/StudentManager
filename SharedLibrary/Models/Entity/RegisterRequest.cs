@@ -5,6 +5,8 @@ namespace SharedLibrary.Models.Entity
     public class RegisterRequest
     {
         [Required]
+        public string Username { get; set; } = string.Empty;
+        [Required]
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = null!;
