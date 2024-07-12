@@ -36,13 +36,16 @@ namespace StudentManager.Server.Services.Implementations
 
             {
                 var checkAdmin = createUserDto.Email.Contains("admin", StringComparison.OrdinalIgnoreCase);
+                var roles = createUserDto.Roles ?? new List<string>();
                 if (checkAdmin)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
                 }
+                else
+                {
+                    roles.Add("Student");
 
-                var roles = createUserDto.Roles ?? new List<string>();
-                roles.Add("Student");
+                }
 
                 result = await userManager.AddToRolesAsync(user, roles);
 
@@ -69,6 +72,7 @@ namespace StudentManager.Server.Services.Implementations
         public async Task<IActionResult> GetUserAsync(ClaimsPrincipal user)
         {
             var id = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var role = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
             if (id is null)
             {
                 return new NotFoundObjectResult("User not found");
@@ -83,7 +87,8 @@ namespace StudentManager.Server.Services.Implementations
             {
                 Id = existingUser.Id,
                 Username = existingUser.UserName,
-                Email = existingUser.Email
+                Email = existingUser.Email,
+                Role = role,
 
             };
             return new OkObjectResult(userDetails);

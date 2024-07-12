@@ -4,5 +4,6 @@ namespace StudentManager.Server.Data
 {
     public class ApplicationUser : IdentityUser
     {
+
     }
 }

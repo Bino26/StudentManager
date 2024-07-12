@@ -25,7 +25,8 @@ namespace StudentManager.Server.Services.Implementations
             {
                 new Claim(ClaimTypes.NameIdentifier,user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name,user.Username)
+                new Claim(ClaimTypes.Name,user.Username),
+
             };
 
             foreach (var role in user.roles)
