@@ -1,6 +1,8 @@
-﻿@page "/admin/sendemail"
+﻿@page "/admin/invitation"
 
+@inject HttpClient httpClient
 @inject NavigationManager navigationManager
+@inject ISnackbar snackbar
 
 <MudContainer>
     <MudTextField @bind-Value="email" Label="Email" Variant="Variant.Outlined"></MudTextField>
@@ -15,15 +17,24 @@
         var token = Guid.NewGuid().ToString();
         var invitation = new Invitation
             {
+                
                 Email = email,
                 Token = token,
-                CreatedAt = DateTime.Now,
-                IsUsed = false
+                
             };
 
 
-        var callbackUrl = navigationManager.ToAbsoluteUri($"/register?token={token}");
-        var body = $"<a href='{callbackUrl}'>Click here to register</a>";
+        var response = await httpClient.PostAsJsonAsync("invitation", invitation);
+        if (!response.IsSuccessStatusCode)
+        {
+            snackbar.Add($"Email not sent to{email}", Severity.Error);
+            return;
+        }
+        else
+        {
+            snackbar.Add($"Email sent to{email}", Severity.Success);
+            return;
+        }
 
        
     }

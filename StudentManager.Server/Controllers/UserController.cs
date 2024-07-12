@@ -77,7 +77,7 @@ namespace StudentManager.Server.Controllers
         ////}
 
         [HttpDelete]
-        [Authorize(Roles = "Student,Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("deleteuser")]
 
         public async Task<IActionResult> DeleteUser()

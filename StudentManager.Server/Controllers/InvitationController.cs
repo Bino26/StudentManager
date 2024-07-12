@@ -6,7 +6,7 @@ using StudentManager.Server.Services.Contracts;
 
 namespace StudentManager.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class InvitationController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace StudentManager.Server.Controllers
         }
 
         [HttpPost]
-        [Authorize()]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> SendInvitation([FromBody] Invitation request)
         {
             try
@@ -47,7 +47,7 @@ namespace StudentManager.Server.Controllers
                 dbContext.Invitations.Add(invitation);
                 await dbContext.SaveChangesAsync();
 
-                var callbackUrl = Url.Action("Register", "User", new { token }, Request.Scheme);
+                var callbackUrl = $"https://localhost:7024/register/invitation?token={token}";
                 var body = $"<a href='{callbackUrl}'>Click here to register</a>";
 
                 await emailService.SendEmailAsync(request.Email, "Registration Invitation", body);
