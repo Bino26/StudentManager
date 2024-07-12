@@ -1,0 +1,65 @@
+﻿
+ @page "/register/invitation"
+@inject HttpClient httpClient
+@inject NavigationManager navigationManager
+@inject ISnackbar snackbar
+
+
+<PageTitle>Register</PageTitle>
+<MudText Typo="Typo.h3" GutterBottom="true">Register</MudText>
+
+<EditForm Model="@RegisterUser" OnValidSubmit="HandleRegister">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Email"
+                                  @bind-Value="RegisterUser.Username" For="@(() => RegisterUser.Username)" />
+                    <MudTextField Label="Password" Class="mt-3"
+                                  @bind-Value="RegisterUser.Password" For="@(() => RegisterUser.Password)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudPaper Class="d-flex flex-column flex-grow-1 gap-4" Elevation="0">
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Register</MudButton>
+                    </MudPaper>
+                </MudCardActions>
+
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public string Token { get; set; }
+
+    private InviteRegistration RegisterUser;
+    private string? Message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("token", out var token))
+        {
+            Token = token;
+        }
+       
+
+    }
+    private async Task HandleRegister()
+    {
+        Message = string.Empty;
+        var response = await httpClient.PostAsJsonAsync($"/api/register/invitation?token={Token}", RegisterUser);
+        if (!response.IsSuccessStatusCode)
+        {
+            Message = "Error occured";
+            snackbar.Add("Registration Failed", Severity.Error);
+            return;
+        }
+        RegisterUser = new();
+        snackbar.Add("Registered with sucess", Severity.Success);
+        navigationManager.NavigateTo("/login");
+    }
+}

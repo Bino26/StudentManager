@@ -52,13 +52,13 @@ namespace StudentManager.Server.Controllers
 
                 await emailService.SendEmailAsync(request.Email, "Registration Invitation", body);
 
-                return Ok($"Email sent to{request.Email}");
+                return Ok($"Email sent to {request.Email}");
 
             }
 
             catch (Exception)
             {
-                return BadRequest($"Email not sent to the user{request.Email}");
+                return BadRequest($"Email not sent to the user {request.Email}");
             }
         }
 
