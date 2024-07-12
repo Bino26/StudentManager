@@ -9,6 +9,7 @@ namespace StudentManager.Server.Data
         {
 
         }
+        public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Student> Students { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

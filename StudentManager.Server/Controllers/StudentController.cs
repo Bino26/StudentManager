@@ -6,7 +6,6 @@ using SharedLibrary.Models.Entity;
 using StudentManager.Server.CustomActionFilters;
 using StudentManager.Server.Repository.Contract;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StudentManager.Server.Controllers
 {

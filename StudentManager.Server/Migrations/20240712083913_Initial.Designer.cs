@@ -12,8 +12,8 @@ using StudentManager.Server.Data;
 namespace StudentManager.Server.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    [Migration("20240626073358_Init ")]
-    partial class Init
+    [Migration("20240712083913_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,31 @@ namespace StudentManager.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SharedLibrary.Models.Entity.Invitation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Invitations");
+                });
 
             modelBuilder.Entity("SharedLibrary.Models.Entity.Student", b =>
                 {
@@ -50,140 +75,140 @@ namespace StudentManager.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ecd5affb-8b4d-4a88-a1df-c4fcdc483ac8"),
+                            Id = new Guid("3f65e3de-16eb-4bb6-82a6-e7d603449a94"),
                             Class = "4A",
                             Email = "alice.dupont@collegesjb.com",
                             Name = "Alice Dupont"
                         },
                         new
                         {
-                            Id = new Guid("14052602-070b-4c1b-a46c-3c82f73b92f3"),
+                            Id = new Guid("de29a3e0-3c93-4118-9001-eb8d148f548b"),
                             Class = "5B",
                             Email = "marc.durand@collegesjb.com",
                             Name = "Marc Durand"
                         },
                         new
                         {
-                            Id = new Guid("6c18e9f8-edbe-400c-9b76-c556301fd663"),
+                            Id = new Guid("011f2fef-6f2e-478b-a94d-c488069532de"),
                             Class = "3C",
                             Email = "julie.martin@collegesjb.com",
                             Name = "Julie Martin"
                         },
                         new
                         {
-                            Id = new Guid("c1f5e8e9-b954-448c-928e-e026f811b4e9"),
+                            Id = new Guid("a743348c-b309-4e41-8e65-68808bbdbd51"),
                             Class = "2D",
                             Email = "pierre.dubois@collegesjb.com",
                             Name = "Pierre Dubois"
                         },
                         new
                         {
-                            Id = new Guid("a4dfffdc-f0ce-4c6c-9dd2-efbcd1448d71"),
+                            Id = new Guid("56e20f47-4eb1-4a1d-98b4-519d9071f7cf"),
                             Class = "1A",
                             Email = "sophie.lefevre@collegesjb.com",
                             Name = "Sophie Lefevre"
                         },
                         new
                         {
-                            Id = new Guid("a3915e85-7802-4d4e-b19f-f822b3f8b887"),
+                            Id = new Guid("6d937347-4a51-4073-bb51-f8e2a5a08b3c"),
                             Class = "4B",
                             Email = "paul.moreau@collegesjb.com",
                             Name = "Paul Moreau"
                         },
                         new
                         {
-                            Id = new Guid("77700417-a71e-4bea-baf4-b942d18b85a6"),
+                            Id = new Guid("875b59f1-75c4-49f4-82c1-44f8d36bece8"),
                             Class = "5C",
                             Email = "lucie.petit@collegesjb.com",
                             Name = "Lucie Petit"
                         },
                         new
                         {
-                            Id = new Guid("27f9bd03-5e1e-43e8-8a43-b997d44c925a"),
+                            Id = new Guid("9a6b72e8-cfd3-4d06-8919-1fe53b71c764"),
                             Class = "3A",
                             Email = "thomas.richard@collegesjb.com",
                             Name = "Thomas Richard"
                         },
                         new
                         {
-                            Id = new Guid("2a387738-8b64-4bde-a830-2c71c3330cb1"),
+                            Id = new Guid("5feab2a2-4657-43f1-be4d-fd959811970f"),
                             Class = "2B",
                             Email = "emma.michel@collegesjb.com",
                             Name = "Emma Michel"
                         },
                         new
                         {
-                            Id = new Guid("f6a8c6e6-961b-4c94-b1a4-7891c1821a45"),
+                            Id = new Guid("c3c426d7-452f-4991-be34-1e513c1cea16"),
                             Class = "1C",
                             Email = "antoine.leroy@collegesjb.com",
                             Name = "Antoine Leroy"
                         },
                         new
                         {
-                            Id = new Guid("ef263000-3f2e-4634-9f9f-e11f6204c10b"),
+                            Id = new Guid("7b9896f9-c46e-405b-8d66-d8fdf6d4aa83"),
                             Class = "4C",
                             Email = "claire.roux@collegesjb.com",
                             Name = "Claire Roux"
                         },
                         new
                         {
-                            Id = new Guid("2b041f44-9c5c-4f30-b959-1f7aef3bc1e6"),
+                            Id = new Guid("758dbf89-3c46-4d71-b5b4-e5aaf3219ab8"),
                             Class = "5A",
                             Email = "julien.vincent@collegesjb.com",
                             Name = "Julien Vincent"
                         },
                         new
                         {
-                            Id = new Guid("a0f1b5ae-6ee4-4317-9226-a788bd95339d"),
+                            Id = new Guid("60e659df-c66f-471c-a309-7a0ef5caf751"),
                             Class = "3B",
                             Email = "manon.garnier@collegesjb.com",
                             Name = "Manon Garnier"
                         },
                         new
                         {
-                            Id = new Guid("e13bc5e4-772c-4491-8882-be87f2c85333"),
+                            Id = new Guid("12ed66e9-a25e-4970-957b-bb3f80e360b4"),
                             Class = "2C",
                             Email = "nicolas.lambert@collegesjb.com",
                             Name = "Nicolas Lambert"
                         },
                         new
                         {
-                            Id = new Guid("d015be9a-3e37-40fe-8b6b-09676ab98bed"),
+                            Id = new Guid("ba4c1c16-564c-4451-a36e-09e5fae65bb9"),
                             Class = "1B",
                             Email = "elodie.fournier@collegesjb.com",
                             Name = "Elodie Fournier"
                         },
                         new
                         {
-                            Id = new Guid("83dcc397-5bec-4ec8-9703-7237ee67f9ae"),
+                            Id = new Guid("6f1138a2-68f6-4e60-ab28-e2c81ed2611d"),
                             Class = "4D",
                             Email = "mathieu.chevalier@collegesjb.com",
                             Name = "Mathieu Chevalier"
                         },
                         new
                         {
-                            Id = new Guid("1ebef7d0-c88e-4891-9565-0e7e91200f42"),
+                            Id = new Guid("c355730c-38e4-44a9-b649-ef3730f3d889"),
                             Class = "5D",
                             Email = "isabelle.francois@collegesjb.com",
                             Name = "Isabelle Francois"
                         },
                         new
                         {
-                            Id = new Guid("6b021295-b304-41bb-b768-d8849df1c01c"),
+                            Id = new Guid("b3d164aa-e473-47b1-8c51-93fa631813da"),
                             Class = "3D",
                             Email = "hugo.dupuis@collegesjb.com",
                             Name = "Hugo Dupuis"
                         },
                         new
                         {
-                            Id = new Guid("98329043-10e1-4bf3-afd4-e818f8fb9b10"),
+                            Id = new Guid("cf78b21b-f7f2-40c0-8a19-81e32c3e90e7"),
                             Class = "2A",
                             Email = "camille.fontaine@collegesjb.com",
                             Name = "Camille Fontaine"
                         },
                         new
                         {
-                            Id = new Guid("1fa723e0-5427-4d6b-8110-e6b896d5b7f4"),
+                            Id = new Guid("cabfd1ef-3528-401c-9ea5-80de0fff6724"),
                             Class = "1D",
                             Email = "victor.leger@collegesjb.com",
                             Name = "Victor Leger"
