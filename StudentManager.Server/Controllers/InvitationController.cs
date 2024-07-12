@@ -6,7 +6,7 @@ using StudentManager.Server.Services.Contracts;
 
 namespace StudentManager.Server.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class InvitationController : ControllerBase
     {

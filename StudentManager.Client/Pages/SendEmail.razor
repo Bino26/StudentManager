@@ -24,7 +24,7 @@
             };
 
 
-        var response = await httpClient.PostAsJsonAsync("invitation", invitation);
+        var response = await httpClient.PostAsJsonAsync("api/invitation", invitation);
         if (!response.IsSuccessStatusCode)
         {
             snackbar.Add($"Email not sent to{email}", Severity.Error);

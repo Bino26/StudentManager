@@ -24,7 +24,7 @@ namespace StudentManager.Server.Controllers
                 await emailService.SendEmailAsync(to, subject, body);
                 return Ok($"Email Sent to {to}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest("Email sending has failed");
             }
