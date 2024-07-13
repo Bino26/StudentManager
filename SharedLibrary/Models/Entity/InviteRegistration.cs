@@ -4,6 +4,7 @@ namespace SharedLibrary.Models.Entity
 {
     public class InviteRegistration
     {
+
         [Required]
         public string Username { get; set; } = string.Empty;
         [Required]

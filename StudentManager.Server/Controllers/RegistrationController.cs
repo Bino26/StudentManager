@@ -24,9 +24,24 @@ namespace StudentManager.Server.Controllers
             this.userManager = userManager;
         }
 
+
+        [HttpGet]
+        [Route("getmail")]
+        // GET: /api/registration/getmail/invitat?token=token
+
+        public async Task<IActionResult> GetInviteMail([FromQuery] string token)
+        {
+            var invitation = await dbContext.Invitations.FirstOrDefaultAsync(i => i.Token == token);
+            if (invitation == null)
+            {
+                return BadRequest("Invalid token.");
+            }
+            return Ok(invitation.Email);
+        }
+
         [HttpPost]
         [Route("register/invitation")]
-        // POST: /api/register/invitation?token=token
+        // POST: /api/registration/register/invitation?token=token
         public async Task<IActionResult> RegistrationByInvitation([FromQuery] string token, [FromBody] InviteRegistration inviteDto)
         {
             try
@@ -72,7 +87,6 @@ namespace StudentManager.Server.Controllers
 
 
         }
-
 
 
     }

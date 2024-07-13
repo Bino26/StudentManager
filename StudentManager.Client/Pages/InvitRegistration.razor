@@ -6,7 +6,7 @@
 
 
 <PageTitle>Register</PageTitle>
-<MudText Typo="Typo.h3" GutterBottom="true">Register</MudText>
+<MudText Typo="Typo.h3" GutterBottom="true">Welcome ! Enjoy your registration with your link</MudText>
 
 <EditForm Model="@RegisterUser" OnValidSubmit="HandleRegister">
     <DataAnnotationsValidator />
@@ -14,7 +14,8 @@
         <MudItem xs="12" sm="7">
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="Email"
+                    <MudTextField Label="Email" T="string" Text="@email" />
+                    <MudTextField Label="UserName"
                                   @bind-Value="RegisterUser.Username" For="@(() => RegisterUser.Username)" />
                     <MudTextField Label="Password" Class="mt-3"
                                   @bind-Value="RegisterUser.Password" For="@(() => RegisterUser.Password)" />
@@ -31,27 +32,37 @@
 </EditForm>
 
 
+
 @code {
+    [SupplyParameterFromQuery]
     [Parameter]
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
-    private InviteRegistration RegisterUser;
+    private InviteRegistration RegisterUser { get; set; } = new();
     private string? Message;
+    private string email { get; set; } = string.Empty;
 
-    protected override async Task OnInitializedAsync()
+
+    protected override async  Task OnParametersSetAsync()
     {
-        var uri = navigationManager.ToAbsoluteUri(navigationManager.Uri);
-        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("token", out var token))
+        var response= await httpClient.GetStringAsync($"/api/registration/getmail?token={Token}");
+        if(response is not null)
         {
-            Token = token;
+            email = response;
+
         }
-       
+        else
+        {
+            email = " Your Email";
+        }
 
     }
+    
+
     private async Task HandleRegister()
     {
         Message = string.Empty;
-        var response = await httpClient.PostAsJsonAsync($"/api/register/invitation?token={Token}", RegisterUser);
+        var response = await httpClient.PostAsJsonAsync($"/api/registration/register/invitation?token={Token}", RegisterUser);
         if (!response.IsSuccessStatusCode)
         {
             Message = "Error occured";

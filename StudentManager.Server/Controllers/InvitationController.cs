@@ -48,9 +48,24 @@ namespace StudentManager.Server.Controllers
                 await dbContext.SaveChangesAsync();
 
                 var callbackUrl = $"https://localhost:7024/register/invitation?token={token}";
-                var body = $"<a href='{callbackUrl}'>Click here to register</a>";
+                //var body = $"<a href='{callbackUrl}'>Click here to register</a>";
 
-                await emailService.SendEmailAsync(request.Email, "Registration Invitation", body);
+                string emailContent = $@"
+                 Hi there,
+
+We're thrilled to welcome you to our College ! To get started, please click the link below to complete your registration:
+
+Click here to register: <a href='{callbackUrl}'>Invite Registration </a>""
+
+If the link doesn't work, you can copy and paste the following URL into your browser: {callbackUrl}
+
+Looking forward to having you with us!
+
+Best regards,
+The Team at Our Service
+";
+
+                await emailService.SendEmailAsync(request.Email, "Registration Invitation", emailContent);
 
                 return Ok($"Email sent to {request.Email}");
 
