@@ -1,8 +1,10 @@
-﻿@page "/students"
+﻿@page "/admin/students"
+@attribute [Authorize(Roles ="Admin")]
 @using SharedLibrary.Models.Entity
 @inject HttpClient HttpClient
 @inject IStudentService studentService
 @inject ISnackbar snackbar
+
 
 <PageTitle>Student Details</PageTitle>
 <MudText Typo="Typo.h3" GutterBottom="true">Students Details</MudText>

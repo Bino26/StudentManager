@@ -1,4 +1,5 @@
 ﻿@page "/admin/invitation"
+@attribute [Authorize(Roles = "Admin")]
 
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager

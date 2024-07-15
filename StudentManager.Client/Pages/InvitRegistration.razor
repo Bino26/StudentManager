@@ -1,5 +1,6 @@
 ﻿
  @page "/register/invitation"
+@attribute [Authorize(Roles = "Student")]
 @inject HttpClient httpClient
 @inject NavigationManager navigationManager
 @inject ISnackbar snackbar

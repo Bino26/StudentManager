@@ -25,15 +25,15 @@
         </AuthorizeView>
          
     </MudAppBar>
-    <AuthorizeView>
-        @* Roles="Admin" *@
+    <AuthorizeView Roles="Admin" >
+       
         <Authorized >
             <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
                 <MudDrawerHeader>
                     <MudText Typo="Typo.h6">Students Admin Portal</MudText>
                 </MudDrawerHeader>
                 <MudDrawerContainer>
-                    <MudNavLink Href="students" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EmojiPeople">Students Details</MudNavLink>
+                    <MudNavLink Href="admin/students" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.EmojiPeople">Students Details</MudNavLink>
                 </MudDrawerContainer>
                 <MudDrawerContainer>
                     <MudNavLink Href="admin/invitation" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Mail">Send Invitation</MudNavLink>

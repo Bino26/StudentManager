@@ -1,4 +1,5 @@
-﻿@page "/student/add"
+﻿@page "/admin/student/add"
+@attribute [Authorize(Roles = "Admin")]
 @page "/student/edit/{Id:guid}"
 @using SharedLibrary.Models
 @inject HttpClient HttpClient
@@ -72,6 +73,6 @@
 
     public void HomePage()
     {
-        navigationManager.NavigateTo("/students");
+        navigationManager.NavigateTo("/admin/students");
     }
 }
