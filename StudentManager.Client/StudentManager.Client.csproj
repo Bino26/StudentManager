@@ -10,10 +10,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.4" PrivateAssets="all" />
 		<PackageReference Include="MudBlazor" Version="6.20.0" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\AuthLibrary\AuthLibrary\AuthLibrary\AuthLibrary.csproj" />
-		<ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
+	  <ProjectReference Include="..\AuthLibrary\AuthLibrary.csproj" />
+	  <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
 	</ItemGroup>	
 
 </Project>
