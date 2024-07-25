@@ -1,0 +1,19 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SharedLibrary.Models.Dto
+{
+    public class ResetPasswordDto
+    {
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email field is required")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password field is required")]
+        [StringLength(100, MinimumLength = 6)]
+        public string oldPassword { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Confirm Password field is required")]
+        [StringLength(100, MinimumLength = 6)]
+        public string newPassword { get; set; } = string.Empty;
+    }
+}

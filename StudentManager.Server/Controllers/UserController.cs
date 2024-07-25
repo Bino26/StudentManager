@@ -98,7 +98,7 @@ namespace StudentManager.Server.Controllers
         [Route("forgotpassword")]
         [ValidateModel]
 
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassword model)
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto model)
         {
 
             var user = await userManager.FindByEmailAsync(model.Email);
@@ -116,18 +116,42 @@ namespace StudentManager.Server.Controllers
         [HttpPost]
         [Route("ResetPassword")]
         [ValidateModel]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPassword model)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto model, [FromQuery] string token)
         {
 
+            //var user = await userManager.FindByEmailAsync(model.Email);
+            //if (user != null)
+            //{
+            //    var checkPasswordResult = await userManager.CheckPasswordAsync(user, model.oldPassword);
+            //    if (checkPasswordResult)
+            //    {
+            //        var result = await userManager.ResetPasswordAsync(user, token, model.newPassword);
+            //        if (result.Succeeded)
+            //            return Ok("Password has been reset successfully");
+
+
+
+            //    }
+            //}
+
+            //return BadRequest("Your old password is not correct");
+
             var user = await userManager.FindByEmailAsync(model.Email);
+            var checkPasswordResult = await userManager.CheckPasswordAsync(user, model.oldPassword);
             if (user == null)
                 return BadRequest("User not found");
+            if (!checkPasswordResult)
+                return BadRequest("Your old password is not correct");
 
-            var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            var result = await userManager.ResetPasswordAsync(user, token, model.newPassword);
             if (result.Succeeded)
                 return Ok("Password has been reset successfully");
 
             return Ok("Password reset successfuly.");
+
+
+
+
 
         }
     }

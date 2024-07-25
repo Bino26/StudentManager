@@ -16,7 +16,8 @@
                     <MudTextField Label="Email" 
                                   @bind-Value="LoginUser.Email" For="@(() => LoginUser.Email)" />
                     <MudTextField Label="Password"  Class="mt-3"
-                                  @bind-Value="LoginUser.Password" For="@(() => LoginUser.Password)"/>
+                                  @bind-Value="LoginUser.Password" InputType="@PasswordInput" For="@(() => LoginUser.Password)" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="HidePasswordclick" AdornmentAriaLabel="Show Password" />
+                    <MudLink Href="/forgot-password" Class="mt-3">Forgot Password?</MudLink>
                 </MudCardContent>
                 <MudCardActions>
                     <MudPaper Class="d-flex flex-column flex-grow-1 gap-4" Elevation="0">
@@ -33,8 +34,13 @@
 @code {
     private LoginRequest LoginUser { get; set; } = new();
     private string? Message;
+    bool isShow;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
     private async Task HandleLogin()
     {
+        
+
         Message = string.Empty;
         var response = await httpClient.PostAsJsonAsync("api/user/login", LoginUser);
         if (!response.IsSuccessStatusCode)
@@ -75,5 +81,21 @@
             navigationManager.NavigateTo("/collegeinfo");
         }
        
+    }
+
+    void HidePasswordclick()
+    {
+        @if (isShow)
+        {
+            isShow = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            isShow = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
     }
 }
