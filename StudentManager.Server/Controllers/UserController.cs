@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.Models.Dto;
 using SharedLibrary.Models.Entity;
 using StudentManager.Server.CustomActionFilters;
+using StudentManager.Server.Data;
 using StudentManager.Server.Services.Contracts;
+using System.Text.Encodings.Web;
 
 namespace StudentManager.Server.Controllers
 {
@@ -11,10 +15,14 @@ namespace StudentManager.Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAuthService authService;
+        private readonly IEmailService emailService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserController(IAuthService authService)
+        public UserController(IAuthService authService, IEmailService emailService, UserManager<ApplicationUser> userManager)
         {
             this.authService = authService;
+            this.emailService = emailService;
+            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -85,5 +93,45 @@ namespace StudentManager.Server.Controllers
             var result = await authService.DeleteUserAsync(User);
             return result;
         }
+
+        [HttpPost]
+        [Route("forgotpassword")]
+        [ValidateModel]
+
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassword model)
+        {
+
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return BadRequest("User not found");
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var callbackUrl = $"https://localhost:7024/resetpassword?token={token}";
+
+            await emailService.SendEmailAsync(model.Email, "Reset Password", $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            return Ok("Password reset link has been sent to your email.");
+        }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        [ValidateModel]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPassword model)
+        {
+
+            var user = await userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return BadRequest("User not found");
+
+            var result = await userManager.ResetPasswordAsync(user, model.Token, model.Password);
+            if (result.Succeeded)
+                return Ok("Password has been reset successfully");
+
+            return Ok("Password reset successfuly.");
+
+        }
     }
+
+
 }
+
