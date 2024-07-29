@@ -8,12 +8,12 @@ namespace SharedLibrary.Models.Dto
         [DataType(DataType.EmailAddress, ErrorMessage = "Email field is required")]
         public string Email { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Password field is required")]
+        [Required(ErrorMessage = "New Password field is required")]
         [StringLength(100, MinimumLength = 6)]
-        public string oldPassword { get; set; } = string.Empty;
+        public string newPassword { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Confirm Password field is required")]
         [StringLength(100, MinimumLength = 6)]
-        public string newPassword { get; set; } = string.Empty;
+        public string confirmPassword { get; set; } = string.Empty;
     }
 }
