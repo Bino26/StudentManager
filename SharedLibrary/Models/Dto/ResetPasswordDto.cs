@@ -12,7 +12,7 @@ namespace SharedLibrary.Models.Dto
         [StringLength(100, MinimumLength = 6)]
         public string newPassword { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Confirm Password field is required")]
+        [Compare("newPassword", ErrorMessage = "The new password and confirm password do not match")]
         [StringLength(100, MinimumLength = 6)]
         public string confirmPassword { get; set; } = string.Empty;
     }

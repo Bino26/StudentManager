@@ -119,46 +119,15 @@ namespace StudentManager.Server.Controllers
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto model, [FromQuery] string token)
         {
 
-            //var user = await userManager.FindByEmailAsync(model.Email);
-            //if (user != null)
-            //{
-            //    var checkPasswordResult = await userManager.CheckPasswordAsync(user, model.oldPassword);
-            //    if (checkPasswordResult)
-            //    {
-            //        var result = await userManager.ResetPasswordAsync(user, token, model.newPassword);
-            //        if (result.Succeeded)
-            //            return Ok("Password has been reset successfully");
-
-
-
-            //    }
-            //}
-
-            //return BadRequest("Your old password is not correct");
-
             var user = await userManager.FindByEmailAsync(model.Email);
-            //var checkPasswordResult = await userManager.CheckPasswordAsync(user, model.oldPassword);
             if (user == null)
                 return BadRequest("User not found");
-            //if (!checkPasswordResult)
-            //    return BadRequest("Your old password is not correct");
-            if (model.newPassword != model.confirmPassword)
-            {
-                return BadRequest("The new password and confirm password do not match");
-            }
 
             var result = await userManager.ResetPasswordAsync(user, token, model.newPassword);
-            if (result.Succeeded)
-                return Ok("Password has been reset successfully");
+            if (!result.Succeeded)
+                return BadRequest("Password Changed has failed");
 
             return Ok("Password reset successfuly.");
-
-
-
-
-
-
-
 
         }
     }
